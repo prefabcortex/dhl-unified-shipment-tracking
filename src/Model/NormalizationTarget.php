@@ -10,12 +10,20 @@ declare(strict_types=1);
 namespace Prefabcortex\DhlUnifiedShipmentTracking\Model;
 
 /**
- * What a model is normalized into: a PHP array, or a JSON document.
+ * What a model is normalized into: a PHP array or a JSON document — of everything it holds, or of
+ * what a request carries.
  *
- * The two differ in one place only — a JSON object that happens to be empty. PHP has one array for
- * both lists and dictionaries, and `json_encode([])` writes `[]`: a model none of whose properties
- * is set, or a map with no entries, would go out as an empty *array* where the description asks for
- * an object, and a server checking types rejects it. A `stdClass` encodes as `{}`, empty or not.
+ * A request carries everything but what the description marks `readOnly`: a value the API sends and
+ * does not take, an `id`, a `createdAt`. The model holds such a value like any other, and
+ * `toArray()` and `jsonSerialize()` write it — a model read from a response reads back as it came.
+ * Leaving it out belongs to sending, so it is asked for by the two request forms and by nothing
+ * else.
+ *
+ * The array and the JSON form differ in one place only — a JSON object that happens to be empty.
+ * PHP has one array for both lists and dictionaries, and `json_encode([])` writes `[]`: a model
+ * none of whose properties is set, or a map with no entries, would go out as an empty *array* where
+ * the description asks for an object, and a server checking types rejects it. A `stdClass` encodes
+ * as `{}`, empty or not.
  *
  * Every other value is the same either way, so each generated model has a single `normalize()`
  * body, and the positions that hold an object ask this which form to write. `toArray()` keeps
@@ -39,6 +47,8 @@ enum NormalizationTarget
 {
     case PhpArray;
     case Json;
+    case RequestArray;
+    case RequestJson;
 
     /**
      * A nested model, in this target's form.
@@ -50,7 +60,27 @@ enum NormalizationTarget
         return match ($this) {
             self::PhpArray => $model->toArray(),
             self::Json => $model->jsonSerialize(),
+            self::RequestArray => $model->toRequestArray(),
+            self::RequestJson => $model->toRequestJson(),
         };
+    }
+
+    /**
+     * Whether this form holds what the description marks `readOnly`: the two that write everything
+     * the model holds do, the two a request is written in do not.
+     */
+    public function writesReadOnly(): bool
+    {
+        return self::PhpArray === $this || self::Json === $this;
+    }
+
+    /**
+     * Whether this form is a JSON document rather than a PHP array: where a value is written
+     * differently for the two — bytes held as a stream have no array form and a text form in JSON.
+     */
+    public function writesJson(): bool
+    {
+        return self::Json === $this || self::RequestJson === $this;
     }
 
     /**
@@ -67,8 +97,8 @@ enum NormalizationTarget
     public function map(array $map): array|object
     {
         return match ($this) {
-            self::PhpArray => $map,
-            self::Json => (object) $map,
+            self::PhpArray, self::RequestArray => $map,
+            self::Json, self::RequestJson => (object) $map,
         };
     }
 }

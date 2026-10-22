@@ -19,9 +19,7 @@ final class None implements Option
 
     public static function create(): self
     {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
+        self::$instance ??= new self();
 
         return self::$instance;
     }

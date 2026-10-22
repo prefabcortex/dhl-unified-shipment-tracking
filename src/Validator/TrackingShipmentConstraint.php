@@ -11,6 +11,7 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Validator;
 
 use Override;
 use Prefabcortex\DhlUnifiedShipmentTracking\Model\TrackingShipment;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
@@ -24,6 +25,7 @@ use Symfony\Component\Validator\Constraints\Type;
  */
 final class TrackingShipmentConstraint implements ConstraintProviderInterface
 {
+    /** @return list<Constraint> */
     #[Override]
     public static function constraints(): array
     {

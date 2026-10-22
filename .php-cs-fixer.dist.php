@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-$finder = PhpCsFixer\Finder::create()->in([__DIR__ . '/src', __DIR__ . '/examples', __DIR__ . '/tests']);
-
 return new PhpCsFixer\Config()
+    ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
@@ -26,10 +25,6 @@ return new PhpCsFixer\Config()
         'new_with_parentheses' => true,
         'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
         'global_namespace_import' => ['import_classes' => true, 'import_constants' => true, 'import_functions' => true],
-
         'single_line_throw' => false,
-
-        'phpdoc_types' => false,
     ])
-    ->setFinder($finder)
-    ->setRiskyAllowed(true);
+    ->setFinder(PhpCsFixer\Finder::create()->in([__DIR__ . '/src', __DIR__ . '/examples', __DIR__ . '/tests']));

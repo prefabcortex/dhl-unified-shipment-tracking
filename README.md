@@ -138,8 +138,9 @@ the value is kept, and `->value` reads it on either. A `match` over the enum
 then needs a `default` arm, which is the point — it is where your code decides what a
 value it has never seen means.
 
-A case is named after the value it stands for, with `_` in place of any character a
-PHP name cannot hold: `ecommerce-apac` is `Service::ecommerce_apac`.
+A case carries the name the API description gives it. Where the description gives
+none, it is named after the value it stands for, with `_` in place of any character a
+PHP name cannot hold: `dgf` is `Service::DGF`.
 
 A value its model cannot hold — a wrong type, a missing required property — stays an
 error either way, because a typed model has nowhere to put it.

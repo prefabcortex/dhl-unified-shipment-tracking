@@ -24,9 +24,7 @@ final readonly class DHLAPIKeyAuthentication implements Authenticator
     #[Override]
     public function authenticate(RequestInterface $request): RequestInterface
     {
-        $request = $request->withHeader('DHL-API-Key', $this->apiKey);
-
-        return $request;
+        return $request->withHeader('DHL-API-Key', $this->apiKey);
     }
 
     #[Override]

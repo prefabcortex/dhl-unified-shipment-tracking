@@ -11,21 +11,21 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Model;
 
 enum Service: string
 {
-    case dgf = 'dgf';
-    case dsc = 'dsc';
-    case ecommerce = 'ecommerce';
-    case ecommerce_apac = 'ecommerce-apac';
-    case ecommerce_europe = 'ecommerce-europe';
-    case ecommerce_ppl = 'ecommerce-ppl';
-    case ecommerce_iberia = 'ecommerce-iberia';
-    case express = 'express';
-    case freight = 'freight';
-    case parcel_de = 'parcel-de';
-    case parcel_nl = 'parcel-nl';
-    case parcel_pl = 'parcel-pl';
-    case parcel_uk = 'parcel-uk';
-    case post_de = 'post-de';
-    case post_international = 'post-international';
-    case sameday = 'sameday';
-    case svb = 'svb';
+    case DGF = 'dgf';
+    case DSC = 'dsc';
+    case ECM = 'ecommerce';
+    case ECP = 'ecommerce-apac';
+    case ECE = 'ecommerce-europe';
+    case PPL = 'ecommerce-ppl';
+    case ECI = 'ecommerce-iberia';
+    case XPR = 'express';
+    case FRT = 'freight';
+    case PAD = 'parcel-de';
+    case PAN = 'parcel-nl';
+    case PAP = 'parcel-pl';
+    case PUK = 'parcel-uk';
+    case PSD = 'post-de';
+    case DPI = 'post-international';
+    case SMD = 'sameday';
+    case SVB = 'svb';
 }

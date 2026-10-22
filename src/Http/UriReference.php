@@ -57,9 +57,7 @@ final class UriReference
     {
         $b = self::components($base);
         if (!$b['hasScheme']) {
-            throw new UnsupportedValueException(
-                sprintf('A relative reference needs an absolute base URI, got "%s".', $base),
-            );
+            throw new UnsupportedValueException(sprintf('A relative reference needs an absolute base URI, got "%s".', $base));
         }
         $r = self::components($reference);
         $target = $r;

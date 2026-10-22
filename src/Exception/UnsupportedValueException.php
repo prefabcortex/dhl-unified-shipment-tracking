@@ -30,8 +30,8 @@ use InvalidArgumentException;
  * `MalformedDataException` says a document was not what its description promised, which is only
  * knowable once it arrives.
  *
- * It is an {@see ApiException} and not a `ResponseException` for the same reason {@see
- * NoHttpClientException} is not: nothing has been sent, so there is no response to hand back.
+ * It is an {@see ApiException} and not a `ResponseException` for the same reason
+ * {@see NoHttpClientException} is not: nothing has been sent, so there is no response to hand back.
  */
 final class UnsupportedValueException extends InvalidArgumentException implements ApiException
 {

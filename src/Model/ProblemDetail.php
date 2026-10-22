@@ -123,51 +123,38 @@ final readonly class ProblemDetail implements SelfNormalizingModel
         $status = None::create();
         $title = None::create();
         $type = None::create();
-        if (array_key_exists('status', $data) && is_int($data['status'])) {
-            $data['status'] = (float) $data['status'];
-        }
         if (array_key_exists('detail', $data) && $data['detail'] !== null) {
             $detailRaw = $data['detail'];
             if (!is_string($detailRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "detail" must be string, got %s.', get_debug_type($detailRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "detail" must be string, got %s.', get_debug_type($detailRaw)));
             }
             $detail = Some::create($detailRaw);
         }
         if (array_key_exists('instance', $data) && $data['instance'] !== null) {
             $instanceRaw = $data['instance'];
             if (!is_string($instanceRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "instance" must be string, got %s.', get_debug_type($instanceRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "instance" must be string, got %s.', get_debug_type($instanceRaw)));
             }
             $instance = Some::create($instanceRaw);
         }
         if (array_key_exists('status', $data) && $data['status'] !== null) {
             $statusRaw = $data['status'];
             if (!(is_float($statusRaw) || is_int($statusRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "status" must be number, got %s.', get_debug_type($statusRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "status" must be number, got %s.', get_debug_type($statusRaw)));
             }
             $status = Some::create((float) $statusRaw);
         }
         if (array_key_exists('title', $data) && $data['title'] !== null) {
             $titleRaw = $data['title'];
             if (!is_string($titleRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "title" must be string, got %s.', get_debug_type($titleRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "title" must be string, got %s.', get_debug_type($titleRaw)));
             }
             $title = Some::create($titleRaw);
         }
         if (array_key_exists('type', $data) && $data['type'] !== null) {
             $typeRaw = $data['type'];
             if (!is_string($typeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "type" must be string, got %s.', get_debug_type($typeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "type" must be string, got %s.', get_debug_type($typeRaw)));
             }
             $type = Some::create($typeRaw);
         }
@@ -210,7 +197,7 @@ final readonly class ProblemDetail implements SelfNormalizingModel
             $type = $typeOption->get();
             $dataArray['type'] = $type;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -219,6 +206,19 @@ final readonly class ProblemDetail implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): ProblemDetailBuilder

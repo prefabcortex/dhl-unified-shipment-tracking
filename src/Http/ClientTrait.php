@@ -156,11 +156,7 @@ trait ClientTrait
         } catch (UnsupportedValueException $exception) {
             throw $exception;
         } catch (InvalidArgumentException $exception) {
-            throw new UnsupportedValueException(
-                sprintf('The request could not be assembled: %s', $exception->getMessage()),
-                0,
-                $exception,
-            );
+            throw new UnsupportedValueException(sprintf('The request could not be assembled: %s', $exception->getMessage()), 0, $exception);
         }
         // The order is load-bearing: both finer interfaces extend `ClientExceptionInterface`, so a
         // catch of the general one first would swallow the classification the client just made.

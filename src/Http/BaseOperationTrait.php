@@ -111,10 +111,7 @@ trait BaseOperationTrait
     final protected static function pathValue(string|int|float|bool|array $value): string
     {
         if (is_array($value)) {
-            return implode(
-                ',',
-                array_map(static fn (string|int|float|bool $item): string => self::pathValue($item), $value),
-            );
+            return implode(',', array_map(self::pathValue(...), $value));
         }
 
         return rawurlencode(self::textValue($value));

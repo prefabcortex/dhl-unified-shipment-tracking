@@ -17,7 +17,8 @@ use Prefabcortex\DhlUnifiedShipmentTracking\Http\JsonBody;
 use Prefabcortex\DhlUnifiedShipmentTracking\Http\ValidationMode;
 use Prefabcortex\DhlUnifiedShipmentTracking\Parameter\GetTrackingShipmentQueryParameters;
 use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\CannedResponse;
-use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\ModelFixtures;
+use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\Model\ProblemDetailFixture;
+use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\Model\TrackingShipmentsFixture;
 use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\RecordingHttpClient;
 use RuntimeException;
 
@@ -45,7 +46,7 @@ final class OperationResponseTest extends TestCase
      */
     public function testGetTrackingShipmentReads200(): void
     {
-        $body = JsonBody::encode(ModelFixtures::buildTrackingShipments());
+        $body = JsonBody::encode(TrackingShipmentsFixture::build());
         $httpClient = new RecordingHttpClient(CannedResponse::answering(200, 'application/json', $body));
         $client = Client::create(
             ClientConfig::forBaseUrl(self::BASE_URL)->withHttpClient($httpClient)->withValidation(
@@ -59,7 +60,7 @@ final class OperationResponseTest extends TestCase
                 sprintf('%s answered %d with %s: %s', 'getTrackingShipment', 200, $error::class, $error->getMessage()),
             );
         }
-        self::assertEquals(ModelFixtures::buildTrackingShipments(), $result);
+        self::assertEquals(TrackingShipmentsFixture::build(), $result);
     }
 
     /**
@@ -69,7 +70,7 @@ final class OperationResponseTest extends TestCase
      */
     public function testGetTrackingShipmentReads404AsProblemJson(): void
     {
-        $body = JsonBody::encode(ModelFixtures::buildProblemDetail());
+        $body = JsonBody::encode(ProblemDetailFixture::build());
         $httpClient = new RecordingHttpClient(CannedResponse::answering(404, 'application/problem+json', $body));
         $client = Client::create(
             ClientConfig::forBaseUrl(self::BASE_URL)->withHttpClient($httpClient)->withValidation(
@@ -87,7 +88,7 @@ final class OperationResponseTest extends TestCase
             );
         } catch (GetTrackingShipmentNotFoundException $exception) {
             self::assertSame(404, $exception->getResponse()->getStatusCode());
-            self::assertEquals(ModelFixtures::buildProblemDetail(), $exception->getProblemDetail());
+            self::assertEquals(ProblemDetailFixture::build(), $exception->getProblemDetail());
             self::assertSame($body, $exception->getRawResponse());
             self::assertSame($body, $exception->getResponse()->getBody()->getContents());
         } catch (ApiException $error) {

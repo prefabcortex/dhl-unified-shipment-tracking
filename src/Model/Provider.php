@@ -62,12 +62,7 @@ final readonly class Provider implements SelfNormalizingModel
         if (array_key_exists('destinationProvider', $data)) {
             $destinationProviderRaw = $data['destinationProvider'];
             if (!is_string($destinationProviderRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "destinationProvider" must be string, got %s.',
-                        get_debug_type($destinationProviderRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "destinationProvider" must be string, got %s.', get_debug_type($destinationProviderRaw)));
             }
             $destinationProvider = ProviderDestinationProvider::tryFrom($destinationProviderRaw)
                 ?? UnknownEnumValue::of($destinationProviderRaw);
@@ -87,7 +82,7 @@ final readonly class Provider implements SelfNormalizingModel
         /** @var array<int|string, mixed> $dataArray */
         $dataArray = [];
         $dataArray['destinationProvider'] = $this->destinationProvider->value;
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -96,6 +91,19 @@ final readonly class Provider implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): ProviderBuilder

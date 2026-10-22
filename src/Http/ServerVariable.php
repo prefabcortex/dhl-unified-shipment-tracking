@@ -73,25 +73,13 @@ final readonly class ServerVariable
         if (array_key_exists($this->name, $values)) {
             $value = $values[$this->name];
             if (!$this->accepts($value)) {
-                throw new UnsupportedValueException(
-                    sprintf(
-                        'The server variable "%s" takes one of "%s", not "%s".',
-                        $this->name,
-                        implode('", "', $this->enum),
-                        $value,
-                    ),
-                );
+                throw new UnsupportedValueException(sprintf('The server variable "%s" takes one of "%s", not "%s".', $this->name, implode('", "', $this->enum), $value));
             }
 
             return $value;
         }
         if (!$this->default->isDefined()) {
-            throw new UnsupportedValueException(
-                sprintf(
-                    'The server variable "%s" has no default; set one with ClientConfig::withServerVariable().',
-                    $this->name,
-                ),
-            );
+            throw new UnsupportedValueException(sprintf('The server variable "%s" has no default; set one with ClientConfig::withServerVariable().', $this->name));
         }
 
         return $this->default->get();

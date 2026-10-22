@@ -26,9 +26,9 @@ use Psr\Http\Message\RequestInterface;
  * the generated `@throws` names.
  *
  * The classification the client made is preserved rather than flattened: a client that reported a
- * network failure produces {@see NetworkException}, one that reported a bad request produces {@see
- * RequestException}, and one that classified neither produces {@see TransportFailedException}.
- * Retry logic keys on exactly that distinction.
+ * network failure produces {@see NetworkException}, one that reported a bad request produces
+ * {@see RequestException}, and one that classified neither produces
+ * {@see TransportFailedException}. Retry logic keys on exactly that distinction.
  *
  * `getRequest()` is declared here for the same reason `ResponseException` declares its accessors: a
  * caller who catches this type can always ask what was being sent. The PSR sub-interfaces declare

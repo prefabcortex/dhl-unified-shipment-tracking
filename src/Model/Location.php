@@ -73,27 +73,17 @@ final readonly class Location implements SelfNormalizingModel
     {
         $lat = None::create();
         $lon = None::create();
-        if (array_key_exists('lat', $data) && is_int($data['lat'])) {
-            $data['lat'] = (float) $data['lat'];
-        }
-        if (array_key_exists('lon', $data) && is_int($data['lon'])) {
-            $data['lon'] = (float) $data['lon'];
-        }
         if (array_key_exists('lat', $data) && $data['lat'] !== null) {
             $latRaw = $data['lat'];
             if (!(is_float($latRaw) || is_int($latRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "lat" must be number, got %s.', get_debug_type($latRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "lat" must be number, got %s.', get_debug_type($latRaw)));
             }
             $lat = Some::create((float) $latRaw);
         }
         if (array_key_exists('lon', $data) && $data['lon'] !== null) {
             $lonRaw = $data['lon'];
             if (!(is_float($lonRaw) || is_int($lonRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "lon" must be number, got %s.', get_debug_type($lonRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "lon" must be number, got %s.', get_debug_type($lonRaw)));
             }
             $lon = Some::create((float) $lonRaw);
         }
@@ -118,7 +108,7 @@ final readonly class Location implements SelfNormalizingModel
             $lon = $lonOption->get();
             $dataArray['lon'] = $lon;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -127,6 +117,19 @@ final readonly class Location implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): LocationBuilder

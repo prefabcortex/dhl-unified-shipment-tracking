@@ -11,6 +11,7 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Validator;
 
 use Override;
 use Prefabcortex\DhlUnifiedShipmentTracking\Model\Service;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Type;
@@ -22,12 +23,13 @@ use function array_map;
  */
 final class ServiceConstraint implements ConstraintProviderInterface
 {
+    /** @return list<Constraint> */
     #[Override]
     public static function constraints(): array
     {
         return [
             new Type(['string']),
-            new Choice(null, array_map(static fn ($c) => $c->value, Service::cases())),
+            new Choice(null, array_map(static fn (Service $c): string => $c->value, Service::cases())),
             new NotNull(),
         ];
     }

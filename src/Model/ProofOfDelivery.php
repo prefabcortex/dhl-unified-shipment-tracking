@@ -106,18 +106,14 @@ final readonly class ProofOfDelivery implements SelfNormalizingModel
         if (array_key_exists('documentUrl', $data) && $data['documentUrl'] !== null) {
             $documentUrlRaw = $data['documentUrl'];
             if (!is_string($documentUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "documentUrl" must be string, got %s.', get_debug_type($documentUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "documentUrl" must be string, got %s.', get_debug_type($documentUrlRaw)));
             }
             $documentUrl = Some::create($documentUrlRaw);
         }
         if (array_key_exists('signatureUrl', $data) && $data['signatureUrl'] !== null) {
             $signatureUrlRaw = $data['signatureUrl'];
             if (!is_string($signatureUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "signatureUrl" must be string, got %s.', get_debug_type($signatureUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "signatureUrl" must be string, got %s.', get_debug_type($signatureUrlRaw)));
             }
             $signatureUrl = Some::create($signatureUrlRaw);
         }
@@ -162,9 +158,7 @@ final readonly class ProofOfDelivery implements SelfNormalizingModel
         if (array_key_exists('timestamp', $data) && $data['timestamp'] !== null) {
             $timestampRaw = $data['timestamp'];
             if (!is_string($timestampRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "timestamp" must be string, got %s.', get_debug_type($timestampRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "timestamp" must be string, got %s.', get_debug_type($timestampRaw)));
             }
             $timestamp = Some::create($timestampRaw);
         }
@@ -187,6 +181,19 @@ final readonly class ProofOfDelivery implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->normalize(NormalizationTarget::Json);
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
     }
 
     /** @return array<int|string, mixed> */
@@ -215,7 +222,7 @@ final readonly class ProofOfDelivery implements SelfNormalizingModel
             $timestamp = $timestampOption->get();
             $dataArray['timestamp'] = $timestamp;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

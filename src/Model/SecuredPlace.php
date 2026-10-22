@@ -74,9 +74,7 @@ final readonly class SecuredPlace implements SelfNormalizingModel
         if (array_key_exists('address', $data) && $data['address'] !== null) {
             $addressRaw = $data['address'];
             if (!is_array($addressRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "address" must be object, got %s.', get_debug_type($addressRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "address" must be object, got %s.', get_debug_type($addressRaw)));
             }
             /** @var array<string, mixed> $addressRawTyped */
             $addressRawTyped = $addressRaw;
@@ -85,9 +83,7 @@ final readonly class SecuredPlace implements SelfNormalizingModel
         if (array_key_exists('servicePoint', $data) && $data['servicePoint'] !== null) {
             $servicePointRaw = $data['servicePoint'];
             if (!is_array($servicePointRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "servicePoint" must be object, got %s.', get_debug_type($servicePointRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "servicePoint" must be object, got %s.', get_debug_type($servicePointRaw)));
             }
             /** @var array<string, mixed> $servicePointRawTyped */
             $servicePointRawTyped = $servicePointRaw;
@@ -112,6 +108,19 @@ final readonly class SecuredPlace implements SelfNormalizingModel
     }
 
     /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
+    }
+
+    /** @return array<int|string, mixed> */
     private function normalize(NormalizationTarget $normalizationTarget): array
     {
         /** @var array<int|string, mixed> $dataArray */
@@ -126,7 +135,7 @@ final readonly class SecuredPlace implements SelfNormalizingModel
             $servicePoint = $servicePointOption->get();
             $dataArray['servicePoint'] = $normalizationTarget->model($servicePoint);
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

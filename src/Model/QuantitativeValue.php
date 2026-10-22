@@ -74,24 +74,17 @@ final readonly class QuantitativeValue implements SelfNormalizingModel
     {
         $unitText = None::create();
         $value = None::create();
-        if (array_key_exists('value', $data) && is_int($data['value'])) {
-            $data['value'] = (float) $data['value'];
-        }
         if (array_key_exists('unitText', $data) && $data['unitText'] !== null) {
             $unitTextRaw = $data['unitText'];
             if (!is_string($unitTextRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "unitText" must be string, got %s.', get_debug_type($unitTextRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "unitText" must be string, got %s.', get_debug_type($unitTextRaw)));
             }
             $unitText = Some::create($unitTextRaw);
         }
         if (array_key_exists('value', $data) && $data['value'] !== null) {
             $valueRaw = $data['value'];
             if (!(is_float($valueRaw) || is_int($valueRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "value" must be number, got %s.', get_debug_type($valueRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "value" must be number, got %s.', get_debug_type($valueRaw)));
             }
             $value = Some::create((float) $valueRaw);
         }
@@ -116,7 +109,7 @@ final readonly class QuantitativeValue implements SelfNormalizingModel
             $value = $valueOption->get();
             $dataArray['value'] = $value;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -125,6 +118,19 @@ final readonly class QuantitativeValue implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): QuantitativeValueBuilder

@@ -57,7 +57,7 @@ final class OperationSmokeTest extends TestCase
             self::assertStringStartsWith(
                 self::BASE_URL . '/shipments',
                 (string) $request->getUri(),
-                'the request did not go to the operation\'s path below the configured base URL',
+                "the request did not go to the operation's path below the configured base URL",
             );
         }
     }

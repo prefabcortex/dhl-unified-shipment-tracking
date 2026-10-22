@@ -91,9 +91,7 @@ final readonly class Dimensions implements SelfNormalizingModel
         if (array_key_exists('height', $data) && $data['height'] !== null) {
             $heightRaw = $data['height'];
             if (!is_array($heightRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "height" must be object, got %s.', get_debug_type($heightRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "height" must be object, got %s.', get_debug_type($heightRaw)));
             }
             /** @var array<string, mixed> $heightRawTyped */
             $heightRawTyped = $heightRaw;
@@ -102,9 +100,7 @@ final readonly class Dimensions implements SelfNormalizingModel
         if (array_key_exists('length', $data) && $data['length'] !== null) {
             $lengthRaw = $data['length'];
             if (!is_array($lengthRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "length" must be object, got %s.', get_debug_type($lengthRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "length" must be object, got %s.', get_debug_type($lengthRaw)));
             }
             /** @var array<string, mixed> $lengthRawTyped */
             $lengthRawTyped = $lengthRaw;
@@ -113,9 +109,7 @@ final readonly class Dimensions implements SelfNormalizingModel
         if (array_key_exists('width', $data) && $data['width'] !== null) {
             $widthRaw = $data['width'];
             if (!is_array($widthRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "width" must be object, got %s.', get_debug_type($widthRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "width" must be object, got %s.', get_debug_type($widthRaw)));
             }
             /** @var array<string, mixed> $widthRawTyped */
             $widthRawTyped = $widthRaw;
@@ -140,6 +134,19 @@ final readonly class Dimensions implements SelfNormalizingModel
     }
 
     /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
+    }
+
+    /** @return array<int|string, mixed> */
     private function normalize(NormalizationTarget $normalizationTarget): array
     {
         /** @var array<int|string, mixed> $dataArray */
@@ -159,7 +166,7 @@ final readonly class Dimensions implements SelfNormalizingModel
             $width = $widthOption->get();
             $dataArray['width'] = $normalizationTarget->model($width);
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

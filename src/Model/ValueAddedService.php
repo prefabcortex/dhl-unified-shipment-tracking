@@ -80,9 +80,7 @@ final readonly class ValueAddedService implements SelfNormalizingModel
         if (array_key_exists('serviceType', $data) && $data['serviceType'] !== null) {
             $serviceTypeRaw = $data['serviceType'];
             if (!is_string($serviceTypeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "serviceType" must be string, got %s.', get_debug_type($serviceTypeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "serviceType" must be string, got %s.', get_debug_type($serviceTypeRaw)));
             }
             $serviceType = Some::create(
                 ValueAddedServiceServiceType::tryFrom($serviceTypeRaw) ?? UnknownEnumValue::of($serviceTypeRaw),
@@ -91,18 +89,14 @@ final readonly class ValueAddedService implements SelfNormalizingModel
         if (array_key_exists('serviceCriteria', $data) && $data['serviceCriteria'] !== null) {
             $serviceCriteriaRaw = $data['serviceCriteria'];
             if (!is_string($serviceCriteriaRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "serviceCriteria" must be string, got %s.', get_debug_type($serviceCriteriaRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "serviceCriteria" must be string, got %s.', get_debug_type($serviceCriteriaRaw)));
             }
             $serviceCriteria = Some::create($serviceCriteriaRaw);
         }
         if (array_key_exists('serviceFlag', $data) && $data['serviceFlag'] !== null) {
             $serviceFlagRaw = $data['serviceFlag'];
             if (!is_bool($serviceFlagRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "serviceFlag" must be bool, got %s.', get_debug_type($serviceFlagRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "serviceFlag" must be bool, got %s.', get_debug_type($serviceFlagRaw)));
             }
             $serviceFlag = Some::create($serviceFlagRaw);
         }
@@ -135,7 +129,7 @@ final readonly class ValueAddedService implements SelfNormalizingModel
             $serviceFlag = $serviceFlagOption->get();
             $dataArray['serviceFlag'] = $serviceFlag;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -144,6 +138,19 @@ final readonly class ValueAddedService implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): ValueAddedServiceBuilder

@@ -11,6 +11,7 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Validator;
 
 use Override;
 use Prefabcortex\DhlUnifiedShipmentTracking\Model\ProofOfDelivery;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -26,6 +27,7 @@ use function is_array;
  */
 final class ProofOfDeliveryConstraint implements ConstraintProviderInterface
 {
+    /** @return list<Constraint> */
     #[Override]
     public static function constraints(): array
     {

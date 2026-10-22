@@ -11,6 +11,7 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Validator;
 
 use Override;
 use Prefabcortex\DhlUnifiedShipmentTracking\Model\ServicePoint;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Optional;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Constraints\Type;
  */
 final class ServicePointConstraint implements ConstraintProviderInterface
 {
+    /** @return list<Constraint> */
     #[Override]
     public static function constraints(): array
     {

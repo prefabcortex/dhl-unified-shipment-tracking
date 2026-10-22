@@ -61,13 +61,7 @@ final readonly class Timeout
     public static function of(float $connectSeconds, float $totalSeconds): self
     {
         if ($connectSeconds <= 0.0 || $totalSeconds <= 0.0 || $connectSeconds > $totalSeconds) {
-            throw new UnsupportedValueException(
-                sprintf(
-                    'A timeout needs 0 < connect <= total seconds, got %s to connect and %s in all.',
-                    $connectSeconds,
-                    $totalSeconds,
-                ),
-            );
+            throw new UnsupportedValueException(sprintf('A timeout needs 0 < connect <= total seconds, got %s to connect and %s in all.', $connectSeconds, $totalSeconds));
         }
 
         return new self($connectSeconds, $totalSeconds);

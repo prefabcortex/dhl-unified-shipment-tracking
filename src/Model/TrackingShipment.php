@@ -287,45 +287,35 @@ final readonly class TrackingShipment implements SelfNormalizingModel
         if (array_key_exists('@ttl', $data) && $data['@ttl'] !== null) {
             $ttlRaw = $data['@ttl'];
             if (!is_int($ttlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "@ttl" must be int, got %s.', get_debug_type($ttlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "@ttl" must be int, got %s.', get_debug_type($ttlRaw)));
             }
             $ttl = Some::create($ttlRaw);
         }
         if (array_key_exists('id', $data) && $data['id'] !== null) {
             $idRaw = $data['id'];
             if (!is_string($idRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "id" must be string, got %s.', get_debug_type($idRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "id" must be string, got %s.', get_debug_type($idRaw)));
             }
             $id = Some::create($idRaw);
         }
         if (array_key_exists('service', $data) && $data['service'] !== null) {
             $serviceRaw = $data['service'];
             if (!is_string($serviceRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "service" must be string, got %s.', get_debug_type($serviceRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "service" must be string, got %s.', get_debug_type($serviceRaw)));
             }
             $service = Some::create(Service::tryFrom($serviceRaw) ?? UnknownEnumValue::of($serviceRaw));
         }
         if (array_key_exists('division', $data) && $data['division'] !== null) {
             $divisionRaw = $data['division'];
             if (!is_string($divisionRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "division" must be string, got %s.', get_debug_type($divisionRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "division" must be string, got %s.', get_debug_type($divisionRaw)));
             }
             $division = Some::create($divisionRaw);
         }
         if (array_key_exists('origin', $data) && $data['origin'] !== null) {
             $originRaw = $data['origin'];
             if (!is_array($originRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "origin" must be object, got %s.', get_debug_type($originRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "origin" must be object, got %s.', get_debug_type($originRaw)));
             }
             /** @var array<string, mixed> $originRawTyped */
             $originRawTyped = $originRaw;
@@ -334,9 +324,7 @@ final readonly class TrackingShipment implements SelfNormalizingModel
         if (array_key_exists('destination', $data) && $data['destination'] !== null) {
             $destinationRaw = $data['destination'];
             if (!is_array($destinationRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "destination" must be object, got %s.', get_debug_type($destinationRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "destination" must be object, got %s.', get_debug_type($destinationRaw)));
             }
             /** @var array<string, mixed> $destinationRawTyped */
             $destinationRawTyped = $destinationRaw;
@@ -345,9 +333,7 @@ final readonly class TrackingShipment implements SelfNormalizingModel
         if (array_key_exists('status', $data) && $data['status'] !== null) {
             $statusRaw = $data['status'];
             if (!is_array($statusRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "status" must be object, got %s.', get_debug_type($statusRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "status" must be object, got %s.', get_debug_type($statusRaw)));
             }
             /** @var non-empty-array<string, mixed> $statusRawTyped */
             $statusRawTyped = $statusRaw;
@@ -356,33 +342,21 @@ final readonly class TrackingShipment implements SelfNormalizingModel
         if (array_key_exists('pickUpDate', $data) && $data['pickUpDate'] !== null) {
             $pickUpDateRaw = $data['pickUpDate'];
             if (!is_string($pickUpDateRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "pickUpDate" must be string, got %s.', get_debug_type($pickUpDateRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "pickUpDate" must be string, got %s.', get_debug_type($pickUpDateRaw)));
             }
             $pickUpDate = Some::create($pickUpDateRaw);
         }
         if (array_key_exists('estimatedTimeOfDelivery', $data) && $data['estimatedTimeOfDelivery'] !== null) {
             $estimatedTimeOfDeliveryRaw = $data['estimatedTimeOfDelivery'];
             if (!is_string($estimatedTimeOfDeliveryRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "estimatedTimeOfDelivery" must be string, got %s.',
-                        get_debug_type($estimatedTimeOfDeliveryRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "estimatedTimeOfDelivery" must be string, got %s.', get_debug_type($estimatedTimeOfDeliveryRaw)));
             }
             $estimatedTimeOfDelivery = Some::create($estimatedTimeOfDeliveryRaw);
         }
         if (array_key_exists('estimatedDeliveryTimeFrame', $data) && $data['estimatedDeliveryTimeFrame'] !== null) {
             $estimatedDeliveryTimeFrameRaw = $data['estimatedDeliveryTimeFrame'];
             if (!is_array($estimatedDeliveryTimeFrameRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "estimatedDeliveryTimeFrame" must be object, got %s.',
-                        get_debug_type($estimatedDeliveryTimeFrameRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "estimatedDeliveryTimeFrame" must be object, got %s.', get_debug_type($estimatedDeliveryTimeFrameRaw)));
             }
             /** @var array<string, mixed> $estimatedDeliveryTimeFrameRawTyped */
             $estimatedDeliveryTimeFrameRawTyped = $estimatedDeliveryTimeFrameRaw;
@@ -396,48 +370,35 @@ final readonly class TrackingShipment implements SelfNormalizingModel
         ) {
             $estimatedTimeOfDeliveryRemarkRaw = $data['estimatedTimeOfDeliveryRemark'];
             if (!is_string($estimatedTimeOfDeliveryRemarkRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "estimatedTimeOfDeliveryRemark" must be string, got %s.',
-                        get_debug_type($estimatedTimeOfDeliveryRemarkRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "estimatedTimeOfDeliveryRemark" must be string, got %s.', get_debug_type($estimatedTimeOfDeliveryRemarkRaw)));
             }
             $estimatedTimeOfDeliveryRemark = Some::create($estimatedTimeOfDeliveryRemarkRaw);
         }
         if (array_key_exists('serviceUrl', $data) && $data['serviceUrl'] !== null) {
             $serviceUrlRaw = $data['serviceUrl'];
             if (!is_string($serviceUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "serviceUrl" must be string, got %s.', get_debug_type($serviceUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "serviceUrl" must be string, got %s.', get_debug_type($serviceUrlRaw)));
             }
             $serviceUrl = Some::create($serviceUrlRaw);
         }
         if (array_key_exists('rerouteUrl', $data) && $data['rerouteUrl'] !== null) {
             $rerouteUrlRaw = $data['rerouteUrl'];
             if (!is_string($rerouteUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "rerouteUrl" must be string, got %s.', get_debug_type($rerouteUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "rerouteUrl" must be string, got %s.', get_debug_type($rerouteUrlRaw)));
             }
             $rerouteUrl = Some::create($rerouteUrlRaw);
         }
         if (array_key_exists('returnFlag', $data) && $data['returnFlag'] !== null) {
             $returnFlagRaw = $data['returnFlag'];
             if (!is_bool($returnFlagRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "returnFlag" must be bool, got %s.', get_debug_type($returnFlagRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "returnFlag" must be bool, got %s.', get_debug_type($returnFlagRaw)));
             }
             $returnFlag = Some::create($returnFlagRaw);
         }
         if (array_key_exists('details', $data) && $data['details'] !== null) {
             $detailsRaw = $data['details'];
             if (!is_array($detailsRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "details" must be object, got %s.', get_debug_type($detailsRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "details" must be object, got %s.', get_debug_type($detailsRaw)));
             }
             /** @var array<string, mixed> $detailsRawTyped */
             $detailsRawTyped = $detailsRaw;
@@ -446,15 +407,11 @@ final readonly class TrackingShipment implements SelfNormalizingModel
         if (array_key_exists('events', $data) && $data['events'] !== null) {
             $eventsRaw = $data['events'];
             if (!(is_array($eventsRaw) && array_is_list($eventsRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "events" must be list, got %s.', get_debug_type($eventsRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "events" must be list, got %s.', get_debug_type($eventsRaw)));
             }
             $events = Some::create(array_map(static function (mixed $value): TrackingShipmentEvent {
                 if (!is_array($value)) {
-                    throw new MalformedDataException(
-                        sprintf('Array item must be object, got %s.', get_debug_type($value)),
-                    );
+                    throw new MalformedDataException(sprintf('Array item must be object, got %s.', get_debug_type($value)));
                 }
                 /** @var non-empty-array<string, mixed> $valueTyped */
                 $valueTyped = $value;
@@ -516,6 +473,19 @@ final readonly class TrackingShipment implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->normalize(NormalizationTarget::Json);
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
     }
 
     /** @return array<int|string, mixed> */
@@ -607,7 +577,7 @@ final readonly class TrackingShipment implements SelfNormalizingModel
             }
             $dataArray['events'] = $values;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

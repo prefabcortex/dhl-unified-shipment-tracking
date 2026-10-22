@@ -19,14 +19,16 @@ use function print_r;
 use function sprintf;
 
 /**
- * Each way of building a client, called against an operation it can authenticate.
+ * Each way of building a client, called against an operation that requires exactly the credentials
+ * it takes — or, for a scheme the description declares and no operation requires, against the first
+ * operation there is: such a client signs every request.
  *
  * The assertions look only at what the credentials put on the wire: a header, a query parameter, an
  * `Authorization` line. Where a requirement names several schemes, all of their marks are checked
  * on the same request — half a signature is no signature.
  *
- * A factory that no operation in this description requires has no test here: nothing it signs could
- * be observed.
+ * A factory whose credentials no operation in this description requires as they stand has no test
+ * here: nothing it signs could be observed.
  */
 final class AuthenticationTest extends TestCase
 {

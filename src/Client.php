@@ -81,9 +81,9 @@ final class Client
      * Every other factory on this class is a shorthand for this one. Reach for it directly for a
      * scheme this package generates no authenticator for: implement `Authentication\Authenticator`
      * under the scheme's name and pass it. A request is signed by the authenticators for the
-     * schemes its operation requires; one for a scheme no operation requires is refused. To sign
-     * every request your own way, pass an HTTP client that does so to
-     * `ClientConfig::withHttpClient()`.
+     * schemes its operation requires. One for a scheme the description declares and no operation
+     * requires signs every request; one for a scheme it does not declare is refused. To sign every
+     * request your own way, pass an HTTP client that does so to `ClientConfig::withHttpClient()`.
      *
      * Note the argument order: `$config` comes first, because the authenticators are variadic and
      * have to come last.
@@ -105,7 +105,7 @@ final class Client
             $httpClient,
             $factory,
             $factory,
-            new AuthenticatorRegistry(array_values($authenticators), ['DHL-API-Key']),
+            new AuthenticatorRegistry(array_values($authenticators), ['DHL-API-Key'], []),
             $config->validation,
         );
     }

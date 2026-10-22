@@ -11,9 +11,9 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Http;
 
 /**
  * The value of a single query or header parameter, in the shape OpenAPI allows one to take: a
- * scalar, a list, or a string-keyed map — see {@see ScalarValue}, {@see ListValue} and {@see
- * MapValue}. The package's other implementations are those shapes already encoded for a particular
- * `style`, and are its own business.
+ * scalar, a list, or a string-keyed map — see {@see ScalarValue}, {@see ListValue} and
+ * {@see MapValue}. The package's other implementations are those shapes already encoded for a
+ * particular `style`, and are its own business.
  *
  * The point of the type is to carry what the generator already knows all the way into the emitted
  * code. A generated parameter object builds these directly from its own typed properties, so

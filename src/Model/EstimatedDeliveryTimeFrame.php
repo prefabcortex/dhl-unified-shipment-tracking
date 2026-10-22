@@ -78,21 +78,14 @@ final readonly class EstimatedDeliveryTimeFrame implements SelfNormalizingModel
         if (array_key_exists('estimatedFrom', $data) && $data['estimatedFrom'] !== null) {
             $estimatedFromRaw = $data['estimatedFrom'];
             if (!is_string($estimatedFromRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "estimatedFrom" must be string, got %s.', get_debug_type($estimatedFromRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "estimatedFrom" must be string, got %s.', get_debug_type($estimatedFromRaw)));
             }
             $estimatedFrom = Some::create($estimatedFromRaw);
         }
         if (array_key_exists('estimatedThrough', $data) && $data['estimatedThrough'] !== null) {
             $estimatedThroughRaw = $data['estimatedThrough'];
             if (!is_string($estimatedThroughRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "estimatedThrough" must be string, got %s.',
-                        get_debug_type($estimatedThroughRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "estimatedThrough" must be string, got %s.', get_debug_type($estimatedThroughRaw)));
             }
             $estimatedThrough = Some::create($estimatedThroughRaw);
         }
@@ -117,7 +110,7 @@ final readonly class EstimatedDeliveryTimeFrame implements SelfNormalizingModel
             $estimatedThrough = $estimatedThroughOption->get();
             $dataArray['estimatedThrough'] = $estimatedThrough;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -126,6 +119,19 @@ final readonly class EstimatedDeliveryTimeFrame implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): EstimatedDeliveryTimeFrameBuilder

@@ -91,27 +91,21 @@ final readonly class Humidity implements SelfNormalizingModel
         if (array_key_exists('value', $data) && $data['value'] !== null) {
             $valueRaw = $data['value'];
             if (!is_string($valueRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "value" must be string, got %s.', get_debug_type($valueRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "value" must be string, got %s.', get_debug_type($valueRaw)));
             }
             $value = Some::create($valueRaw);
         }
         if (array_key_exists('unit', $data) && $data['unit'] !== null) {
             $unitRaw = $data['unit'];
             if (!is_string($unitRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "unit" must be string, got %s.', get_debug_type($unitRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "unit" must be string, got %s.', get_debug_type($unitRaw)));
             }
             $unit = Some::create(HumidityUnit::tryFrom($unitRaw) ?? UnknownEnumValue::of($unitRaw));
         }
         if (array_key_exists('deviceId', $data) && $data['deviceId'] !== null) {
             $deviceIdRaw = $data['deviceId'];
             if (!is_string($deviceIdRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "deviceId" must be string, got %s.', get_debug_type($deviceIdRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "deviceId" must be string, got %s.', get_debug_type($deviceIdRaw)));
             }
             $deviceId = Some::create($deviceIdRaw);
         }
@@ -141,7 +135,7 @@ final readonly class Humidity implements SelfNormalizingModel
             $deviceId = $deviceIdOption->get();
             $dataArray['deviceId'] = $deviceId;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -150,6 +144,19 @@ final readonly class Humidity implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): HumidityBuilder

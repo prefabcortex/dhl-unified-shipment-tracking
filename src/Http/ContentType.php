@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Prefabcortex\DhlUnifiedShipmentTracking\Http;
 
+use function array_any;
 use function explode;
 use function str_ends_with;
 use function str_starts_with;
@@ -63,8 +64,8 @@ final readonly class ContentType
      * Whether the body's media type is the one a description names.
      *
      * The argument comes from the description and may be a *range*: OpenAPI allows one as a key
-     * under `content` — {@see self::ANY} for any type there is, and a type followed by {@see
-     * self::ANY_SUBTYPE} for any subtype of it. Both mean there what they mean in an `Accept`
+     * under `content` — {@see self::ANY} for any type there is, and a type followed by
+     * {@see self::ANY_SUBTYPE} for any subtype of it. Both mean there what they mean in an `Accept`
      * header, so a range matches every type it covers rather than only a server that answers with
      * the range itself as its header.
      *
@@ -98,12 +99,6 @@ final readonly class ContentType
      */
     public function isAnyOf(array $mediaTypes): bool
     {
-        foreach ($mediaTypes as $mediaType) {
-            if ($this->is($mediaType)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any($mediaTypes, fn (string $mediaType): bool => $this->is($mediaType));
     }
 }

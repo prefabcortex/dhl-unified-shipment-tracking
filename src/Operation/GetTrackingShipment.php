@@ -42,20 +42,18 @@ use function in_array;
  *
  * @implements Operation<TrackingShipments>
  */
-final class GetTrackingShipment implements Operation
+final readonly class GetTrackingShipment implements Operation
 {
     use BaseOperationTrait;
     use OperationTrait;
     use ValidatorTrait;
-    private readonly GetTrackingShipmentQueryParameters $queryParameters;
 
     /**
      * Retrieves the tracking information for shipments(s). The shipments are identified using the
      * required `trackingNumber` query parameter.
      */
-    public function __construct(GetTrackingShipmentQueryParameters $queryParameters)
+    public function __construct(private GetTrackingShipmentQueryParameters $queryParameters)
     {
-        $this->queryParameters = $queryParameters;
     }
 
     #[Override]

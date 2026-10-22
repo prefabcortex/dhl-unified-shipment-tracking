@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Prefabcortex\DhlUnifiedShipmentTracking\Examples\Auth;
 
-use InvalidArgumentException;
 use Prefabcortex\DhlUnifiedShipmentTracking\Client;
 use Prefabcortex\DhlUnifiedShipmentTracking\ClientConfig;
 use Prefabcortex\DhlUnifiedShipmentTracking\Exception\NoHttpClientException;
 use Prefabcortex\DhlUnifiedShipmentTracking\Server;
+use InvalidArgumentException;
 use RuntimeException;
 
 use function getenv;

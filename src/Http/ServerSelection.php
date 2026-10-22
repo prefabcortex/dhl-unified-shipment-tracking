@@ -113,12 +113,7 @@ final readonly class ServerSelection
     public function withVariable(string $name, string $value): self
     {
         if ($this->everywhere->isDefined()) {
-            throw new UnsupportedValueException(
-                sprintf(
-                    'A configuration made with ClientConfig::forBaseUrl() sends every request to one address; it has no server variable "%s".',
-                    $name,
-                ),
-            );
+            throw new UnsupportedValueException(sprintf('A configuration made with ClientConfig::forBaseUrl() sends every request to one address; it has no server variable "%s".', $name));
         }
         $declared = false;
         foreach ($this->chosen as $server) {
@@ -127,14 +122,7 @@ final readonly class ServerSelection
             }
             $declared = true;
             if (!$server->accepts($name, $value)) {
-                throw new UnsupportedValueException(
-                    sprintf(
-                        'The server `%s` does not take "%s" for its variable "%s".',
-                        $server->template,
-                        $value,
-                        $name,
-                    ),
-                );
+                throw new UnsupportedValueException(sprintf('The server `%s` does not take "%s" for its variable "%s".', $server->template, $value, $name));
             }
         }
         if (!$declared) {
@@ -154,9 +142,7 @@ final readonly class ServerSelection
     public function withOrigin(string $origin): self
     {
         if (!UriReference::isAbsoluteWithHost($origin)) {
-            throw new UnsupportedValueException(
-                sprintf('An origin must carry a scheme and a host, got "%s".', $origin),
-            );
+            throw new UnsupportedValueException(sprintf('An origin must carry a scheme and a host, got "%s".', $origin));
         }
 
         return new self($this->chosen, $this->unchosen, $this->everywhere, $this->variables, Some::create($origin));
@@ -205,9 +191,7 @@ final readonly class ServerSelection
         if ($this->everywhere->isDefined()) {
             $url = $this->everywhere->get();
             if (!UriReference::isAbsoluteWithHost($url)) {
-                throw new UnsupportedValueException(
-                    sprintf('Base URL must carry a scheme and a host, got "%s".', $url),
-                );
+                throw new UnsupportedValueException(sprintf('Base URL must carry a scheme and a host, got "%s".', $url));
             }
 
             return $url;
@@ -224,22 +208,11 @@ final readonly class ServerSelection
             return $url;
         }
         if (!$this->origin->isDefined()) {
-            throw new UnsupportedValueException(
-                sprintf(
-                    'The server `%s` is relative to wherever the API is served; say where with ClientConfig::withOrigin().',
-                    $server->template,
-                ),
-            );
+            throw new UnsupportedValueException(sprintf('The server `%s` is relative to wherever the API is served; say where with ClientConfig::withOrigin().', $server->template));
         }
         $resolved = UriReference::resolve($this->origin->get(), $url);
         if (!UriReference::isAbsoluteWithHost($resolved)) {
-            throw new UnsupportedValueException(
-                sprintf(
-                    'The server `%s` does not address a host, even against "%s".',
-                    $server->template,
-                    $this->origin->get(),
-                ),
-            );
+            throw new UnsupportedValueException(sprintf('The server `%s` does not address a host, even against "%s".', $server->template, $this->origin->get()));
         }
 
         return $resolved;

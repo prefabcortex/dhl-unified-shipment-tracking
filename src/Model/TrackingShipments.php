@@ -155,60 +155,46 @@ final readonly class TrackingShipments implements SelfNormalizingModel
         if (array_key_exists('url', $data) && $data['url'] !== null) {
             $urlRaw = $data['url'];
             if (!is_string($urlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "url" must be string, got %s.', get_debug_type($urlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "url" must be string, got %s.', get_debug_type($urlRaw)));
             }
             $url = Some::create($urlRaw);
         }
         if (array_key_exists('prevUrl', $data) && $data['prevUrl'] !== null) {
             $prevUrlRaw = $data['prevUrl'];
             if (!is_string($prevUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "prevUrl" must be string, got %s.', get_debug_type($prevUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "prevUrl" must be string, got %s.', get_debug_type($prevUrlRaw)));
             }
             $prevUrl = Some::create($prevUrlRaw);
         }
         if (array_key_exists('nextUrl', $data) && $data['nextUrl'] !== null) {
             $nextUrlRaw = $data['nextUrl'];
             if (!is_string($nextUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "nextUrl" must be string, got %s.', get_debug_type($nextUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "nextUrl" must be string, got %s.', get_debug_type($nextUrlRaw)));
             }
             $nextUrl = Some::create($nextUrlRaw);
         }
         if (array_key_exists('firstUrl', $data) && $data['firstUrl'] !== null) {
             $firstUrlRaw = $data['firstUrl'];
             if (!is_string($firstUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "firstUrl" must be string, got %s.', get_debug_type($firstUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "firstUrl" must be string, got %s.', get_debug_type($firstUrlRaw)));
             }
             $firstUrl = Some::create($firstUrlRaw);
         }
         if (array_key_exists('lastUrl', $data) && $data['lastUrl'] !== null) {
             $lastUrlRaw = $data['lastUrl'];
             if (!is_string($lastUrlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "lastUrl" must be string, got %s.', get_debug_type($lastUrlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "lastUrl" must be string, got %s.', get_debug_type($lastUrlRaw)));
             }
             $lastUrl = Some::create($lastUrlRaw);
         }
         if (array_key_exists('shipments', $data) && $data['shipments'] !== null) {
             $shipmentsRaw = $data['shipments'];
             if (!(is_array($shipmentsRaw) && array_is_list($shipmentsRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "shipments" must be list, got %s.', get_debug_type($shipmentsRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "shipments" must be list, got %s.', get_debug_type($shipmentsRaw)));
             }
             $shipments = Some::create(array_map(static function (mixed $value): TrackingShipment {
                 if (!is_array($value)) {
-                    throw new MalformedDataException(
-                        sprintf('Array item must be object, got %s.', get_debug_type($value)),
-                    );
+                    throw new MalformedDataException(sprintf('Array item must be object, got %s.', get_debug_type($value)));
                 }
                 /** @var array<string, mixed> $valueTyped */
                 $valueTyped = $value;
@@ -222,18 +208,11 @@ final readonly class TrackingShipments implements SelfNormalizingModel
         ) {
             $possibleAdditionalShipmentsUrlRaw = $data['possibleAdditionalShipmentsUrl'];
             if (!(is_array($possibleAdditionalShipmentsUrlRaw) && array_is_list($possibleAdditionalShipmentsUrlRaw))) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "possibleAdditionalShipmentsUrl" must be list, got %s.',
-                        get_debug_type($possibleAdditionalShipmentsUrlRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "possibleAdditionalShipmentsUrl" must be list, got %s.', get_debug_type($possibleAdditionalShipmentsUrlRaw)));
             }
             $possibleAdditionalShipmentsUrl = Some::create(array_map(static function (mixed $value_1): string {
                 if (!is_string($value_1)) {
-                    throw new MalformedDataException(
-                        sprintf('Array item must be string, got %s.', get_debug_type($value_1)),
-                    );
+                    throw new MalformedDataException(sprintf('Array item must be string, got %s.', get_debug_type($value_1)));
                 }
 
                 return $value_1;
@@ -278,6 +257,19 @@ final readonly class TrackingShipments implements SelfNormalizingModel
     }
 
     /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
+    }
+
+    /** @return array<int|string, mixed> */
     private function normalize(NormalizationTarget $normalizationTarget): array
     {
         /** @var array<int|string, mixed> $dataArray */
@@ -319,13 +311,9 @@ final readonly class TrackingShipments implements SelfNormalizingModel
         $possibleAdditionalShipmentsUrlOption = $this->possibleAdditionalShipmentsUrl;
         if ($possibleAdditionalShipmentsUrlOption->isDefined()) {
             $possibleAdditionalShipmentsUrl = $possibleAdditionalShipmentsUrlOption->get();
-            $values_1 = [];
-            foreach ($possibleAdditionalShipmentsUrl as $value_1) {
-                $values_1[] = $value_1;
-            }
-            $dataArray['possibleAdditionalShipmentsUrl'] = $values_1;
+            $dataArray['possibleAdditionalShipmentsUrl'] = $possibleAdditionalShipmentsUrl;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

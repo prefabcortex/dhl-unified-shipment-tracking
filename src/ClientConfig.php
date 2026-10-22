@@ -28,22 +28,15 @@ final readonly class ClientConfig
      *                    generated operations and client touch this, and it may change in any release
      */
     public ServerSelection $servers;
-    /** @var Option<ClientInterface> */
-    public Option $httpClient;
-    public Timeout $timeout;
-    public ValidationMode $validation;
 
     /** @param Option<ClientInterface> $httpClient */
     private function __construct(
         ServerSelection $servers,
-        Option $httpClient,
-        Timeout $timeout,
-        ValidationMode $validation,
+        public Option $httpClient,
+        public Timeout $timeout,
+        public ValidationMode $validation,
     ) {
         $this->servers = $servers;
-        $this->httpClient = $httpClient;
-        $this->timeout = $timeout;
-        $this->validation = $validation;
     }
 
     /**

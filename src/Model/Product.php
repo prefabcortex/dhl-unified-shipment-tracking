@@ -87,30 +87,21 @@ final readonly class Product implements SelfNormalizingModel
         if (array_key_exists('deliveryMethodRemark', $data) && $data['deliveryMethodRemark'] !== null) {
             $deliveryMethodRemarkRaw = $data['deliveryMethodRemark'];
             if (!is_string($deliveryMethodRemarkRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "deliveryMethodRemark" must be string, got %s.',
-                        get_debug_type($deliveryMethodRemarkRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "deliveryMethodRemark" must be string, got %s.', get_debug_type($deliveryMethodRemarkRaw)));
             }
             $deliveryMethodRemark = Some::create($deliveryMethodRemarkRaw);
         }
         if (array_key_exists('productCode', $data) && $data['productCode'] !== null) {
             $productCodeRaw = $data['productCode'];
             if (!is_string($productCodeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "productCode" must be string, got %s.', get_debug_type($productCodeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "productCode" must be string, got %s.', get_debug_type($productCodeRaw)));
             }
             $productCode = Some::create($productCodeRaw);
         }
         if (array_key_exists('productName', $data) && $data['productName'] !== null) {
             $productNameRaw = $data['productName'];
             if (!is_string($productNameRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "productName" must be string, got %s.', get_debug_type($productNameRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "productName" must be string, got %s.', get_debug_type($productNameRaw)));
             }
             $productName = Some::create($productNameRaw);
         }
@@ -143,7 +134,7 @@ final readonly class Product implements SelfNormalizingModel
             $productName = $productNameOption->get();
             $dataArray['productName'] = $productName;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -152,6 +143,19 @@ final readonly class Product implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): ProductBuilder

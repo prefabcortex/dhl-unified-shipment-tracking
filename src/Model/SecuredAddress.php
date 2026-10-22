@@ -168,75 +168,56 @@ final readonly class SecuredAddress implements SelfNormalizingModel
         if (array_key_exists('@policy', $data) && $data['@policy'] !== null) {
             $policyRaw = $data['@policy'];
             if (!is_string($policyRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "@policy" must be string, got %s.', get_debug_type($policyRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "@policy" must be string, got %s.', get_debug_type($policyRaw)));
             }
             $policy = Some::create(SecretPolicy::tryFrom($policyRaw) ?? UnknownEnumValue::of($policyRaw));
         }
         if (array_key_exists('addressLocality', $data) && $data['addressLocality'] !== null) {
             $addressLocalityRaw = $data['addressLocality'];
             if (!is_string($addressLocalityRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "addressLocality" must be string, got %s.', get_debug_type($addressLocalityRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "addressLocality" must be string, got %s.', get_debug_type($addressLocalityRaw)));
             }
             $addressLocality = Some::create($addressLocalityRaw);
         }
         if (array_key_exists('addressLocalityServicing', $data) && $data['addressLocalityServicing'] !== null) {
             $addressLocalityServicingRaw = $data['addressLocalityServicing'];
             if (!is_string($addressLocalityServicingRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "addressLocalityServicing" must be string, got %s.',
-                        get_debug_type($addressLocalityServicingRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "addressLocalityServicing" must be string, got %s.', get_debug_type($addressLocalityServicingRaw)));
             }
             $addressLocalityServicing = Some::create($addressLocalityServicingRaw);
         }
         if (array_key_exists('addressRegion', $data) && $data['addressRegion'] !== null) {
             $addressRegionRaw = $data['addressRegion'];
             if (!is_string($addressRegionRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "addressRegion" must be string, got %s.', get_debug_type($addressRegionRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "addressRegion" must be string, got %s.', get_debug_type($addressRegionRaw)));
             }
             $addressRegion = Some::create($addressRegionRaw);
         }
         if (array_key_exists('countryCode', $data) && $data['countryCode'] !== null) {
             $countryCodeRaw = $data['countryCode'];
             if (!is_string($countryCodeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "countryCode" must be string, got %s.', get_debug_type($countryCodeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "countryCode" must be string, got %s.', get_debug_type($countryCodeRaw)));
             }
             $countryCode = Some::create($countryCodeRaw);
         }
         if (array_key_exists('postalCode', $data) && $data['postalCode'] !== null) {
             $postalCodeRaw = $data['postalCode'];
             if (!is_string($postalCodeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "postalCode" must be string, got %s.', get_debug_type($postalCodeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "postalCode" must be string, got %s.', get_debug_type($postalCodeRaw)));
             }
             $postalCode = Some::create($postalCodeRaw);
         }
         if (array_key_exists('streetAddress', $data) && $data['streetAddress'] !== null) {
             $streetAddressRaw = $data['streetAddress'];
             if (!is_string($streetAddressRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "streetAddress" must be string, got %s.', get_debug_type($streetAddressRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "streetAddress" must be string, got %s.', get_debug_type($streetAddressRaw)));
             }
             $streetAddress = Some::create($streetAddressRaw);
         }
         if (array_key_exists('addressLine', $data) && $data['addressLine'] !== null) {
             $addressLineRaw = $data['addressLine'];
             if (!is_string($addressLineRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "addressLine" must be string, got %s.', get_debug_type($addressLineRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "addressLine" must be string, got %s.', get_debug_type($addressLineRaw)));
             }
             $addressLine = Some::create($addressLineRaw);
         }
@@ -313,7 +294,7 @@ final readonly class SecuredAddress implements SelfNormalizingModel
             $addressLine = $addressLineOption->get();
             $dataArray['addressLine'] = $addressLine;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -322,6 +303,19 @@ final readonly class SecuredAddress implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): SecuredAddressBuilder

@@ -185,42 +185,32 @@ final readonly class Measurement implements SelfNormalizingModel
         if (array_key_exists('@policy', $data) && $data['@policy'] !== null) {
             $policyRaw = $data['@policy'];
             if (!is_string($policyRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "@policy" must be string, got %s.', get_debug_type($policyRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "@policy" must be string, got %s.', get_debug_type($policyRaw)));
             }
             $policy = Some::create(SecretPolicy::tryFrom($policyRaw) ?? UnknownEnumValue::of($policyRaw));
         }
         if (array_key_exists('timestamp', $data) && $data['timestamp'] !== null) {
             $timestampRaw = $data['timestamp'];
             if (!is_string($timestampRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "timestamp" must be string, got %s.', get_debug_type($timestampRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "timestamp" must be string, got %s.', get_debug_type($timestampRaw)));
             }
             $timestamp = Some::create($timestampRaw);
         }
         if (array_key_exists('deviceId', $data) && $data['deviceId'] !== null) {
             $deviceIdRaw = $data['deviceId'];
             if (!is_string($deviceIdRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "deviceId" must be string, got %s.', get_debug_type($deviceIdRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "deviceId" must be string, got %s.', get_debug_type($deviceIdRaw)));
             }
             $deviceId = Some::create($deviceIdRaw);
         }
         if (array_key_exists('pieceIds', $data) && $data['pieceIds'] !== null) {
             $pieceIdsRaw = $data['pieceIds'];
             if (!(is_array($pieceIdsRaw) && array_is_list($pieceIdsRaw))) {
-                throw new MalformedDataException(
-                    sprintf('Property "pieceIds" must be list, got %s.', get_debug_type($pieceIdsRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "pieceIds" must be list, got %s.', get_debug_type($pieceIdsRaw)));
             }
             $pieceIds = Some::create(array_map(static function (mixed $value): string {
                 if (!is_string($value)) {
-                    throw new MalformedDataException(
-                        sprintf('Array item must be string, got %s.', get_debug_type($value)),
-                    );
+                    throw new MalformedDataException(sprintf('Array item must be string, got %s.', get_debug_type($value)));
                 }
 
                 return $value;
@@ -229,9 +219,7 @@ final readonly class Measurement implements SelfNormalizingModel
         if (array_key_exists('location', $data) && $data['location'] !== null) {
             $locationRaw = $data['location'];
             if (!is_array($locationRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "location" must be object, got %s.', get_debug_type($locationRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "location" must be object, got %s.', get_debug_type($locationRaw)));
             }
             /** @var array<string, mixed> $locationRawTyped */
             $locationRawTyped = $locationRaw;
@@ -240,9 +228,7 @@ final readonly class Measurement implements SelfNormalizingModel
         if (array_key_exists('humidity', $data) && $data['humidity'] !== null) {
             $humidityRaw = $data['humidity'];
             if (!is_array($humidityRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "humidity" must be object, got %s.', get_debug_type($humidityRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "humidity" must be object, got %s.', get_debug_type($humidityRaw)));
             }
             /** @var array<string, mixed> $humidityRawTyped */
             $humidityRawTyped = $humidityRaw;
@@ -251,9 +237,7 @@ final readonly class Measurement implements SelfNormalizingModel
         if (array_key_exists('pressure', $data) && $data['pressure'] !== null) {
             $pressureRaw = $data['pressure'];
             if (!is_array($pressureRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "pressure" must be object, got %s.', get_debug_type($pressureRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "pressure" must be object, got %s.', get_debug_type($pressureRaw)));
             }
             /** @var array<string, mixed> $pressureRawTyped */
             $pressureRawTyped = $pressureRaw;
@@ -262,9 +246,7 @@ final readonly class Measurement implements SelfNormalizingModel
         if (array_key_exists('temperature', $data) && $data['temperature'] !== null) {
             $temperatureRaw = $data['temperature'];
             if (!is_array($temperatureRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "temperature" must be object, got %s.', get_debug_type($temperatureRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "temperature" must be object, got %s.', get_debug_type($temperatureRaw)));
             }
             /** @var array<string, mixed> $temperatureRawTyped */
             $temperatureRawTyped = $temperatureRaw;
@@ -273,9 +255,7 @@ final readonly class Measurement implements SelfNormalizingModel
         if (array_key_exists('tilt', $data) && $data['tilt'] !== null) {
             $tiltRaw = $data['tilt'];
             if (!is_array($tiltRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "tilt" must be object, got %s.', get_debug_type($tiltRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "tilt" must be object, got %s.', get_debug_type($tiltRaw)));
             }
             /** @var array<string, mixed> $tiltRawTyped */
             $tiltRawTyped = $tiltRaw;
@@ -324,6 +304,19 @@ final readonly class Measurement implements SelfNormalizingModel
     }
 
     /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
+    }
+
+    /** @return array<int|string, mixed> */
     private function normalize(NormalizationTarget $normalizationTarget): array
     {
         /** @var array<int|string, mixed> $dataArray */
@@ -346,11 +339,7 @@ final readonly class Measurement implements SelfNormalizingModel
         $pieceIdsOption = $this->pieceIds;
         if ($pieceIdsOption->isDefined()) {
             $pieceIds = $pieceIdsOption->get();
-            $values = [];
-            foreach ($pieceIds as $value) {
-                $values[] = $value;
-            }
-            $dataArray['pieceIds'] = $values;
+            $dataArray['pieceIds'] = $pieceIds;
         }
         $locationOption = $this->location;
         if ($locationOption->isDefined()) {
@@ -377,7 +366,7 @@ final readonly class Measurement implements SelfNormalizingModel
             $tilt = $tiltOption->get();
             $dataArray['tilt'] = $normalizationTarget->model($tilt);
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

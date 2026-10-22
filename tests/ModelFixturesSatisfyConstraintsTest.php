@@ -7,7 +7,7 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Tests;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 use Prefabcortex\DhlUnifiedShipmentTracking\Model\SelfNormalizingModel;
-use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\ModelFixtureProviders;
+use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\Model\ModelFixtureProviders;
 use RuntimeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Validation;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validation;
  *
  * The fixtures are the values the examples use too, so a model that fails here is one whose example
  * this package would refuse to send. Models whose values could not all be chosen to pass are listed
- * in the docblock of ModelFixtures and not asked.
+ * in the docblock of ModelFixtureProviders and not asked.
  */
 final class ModelFixturesSatisfyConstraintsTest extends TestCase
 {

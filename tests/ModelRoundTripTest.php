@@ -7,7 +7,7 @@ namespace Prefabcortex\DhlUnifiedShipmentTracking\Tests;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 use Prefabcortex\DhlUnifiedShipmentTracking\Model\SelfNormalizingModel;
-use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\ModelFixtureProviders;
+use Prefabcortex\DhlUnifiedShipmentTracking\Tests\Fixture\Model\ModelFixtureProviders;
 use RuntimeException;
 
 /**

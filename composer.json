@@ -1,6 +1,6 @@
 {
     "name": "prefabcortex/dhl-unified-shipment-tracking",
-    "description": "Unofficial PHP client for Unified Shipment Tracking API \u2014 The Shipment Tracking API provides up-to-the-minute shipment status reports",
+    "description": "Unofficial PHP client for Unified Shipment Tracking API",
     "type": "library",
     "keywords": [
         "openapi",
@@ -50,18 +50,20 @@
     "require-dev": {
         "ergebnis/phpstan-rules": "^2.14",
         "friendsofphp/php-cs-fixer": "^3.95",
-        "phpstan/phpstan": "^2.2",
-        "phpunit/phpunit": "^13.3",
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^13.4",
         "psr/log": "^3.0",
-        "roave/backward-compatibility-check": "^8.22",
+        "rector/rector": "^2.7",
+        "roave/backward-compatibility-check": "^8.23",
         "shipmonk/phpstan-rules": "^4.4",
         "symfony/http-client": "^7.4 || ^8.0"
     },
     "scripts": {
         "test": "phpunit",
         "analyse": "phpstan analyse --memory-limit=-1",
-        "cs-check": "php-cs-fixer check",
-        "cs-fix": "php-cs-fixer fix",
+        "rector-check": "rector process --dry-run --clear-cache --memory-limit=-1",
+        "cs-check": "@php -d memory_limit=-1 vendor/bin/php-cs-fixer check",
+        "cs-fix": "@php -d memory_limit=-1 vendor/bin/php-cs-fixer fix",
         "bc-check": "roave-backward-compatibility-check"
     }
 }

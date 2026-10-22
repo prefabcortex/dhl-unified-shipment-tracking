@@ -67,18 +67,14 @@ final readonly class ServicePoint implements SelfNormalizingModel
         if (array_key_exists('url', $data) && $data['url'] !== null) {
             $urlRaw = $data['url'];
             if (!is_string($urlRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "url" must be string, got %s.', get_debug_type($urlRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "url" must be string, got %s.', get_debug_type($urlRaw)));
             }
             $url = Some::create($urlRaw);
         }
         if (array_key_exists('label', $data) && $data['label'] !== null) {
             $labelRaw = $data['label'];
             if (!is_string($labelRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "label" must be string, got %s.', get_debug_type($labelRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "label" must be string, got %s.', get_debug_type($labelRaw)));
             }
             $label = Some::create($labelRaw);
         }
@@ -103,7 +99,7 @@ final readonly class ServicePoint implements SelfNormalizingModel
             $label = $labelOption->get();
             $dataArray['label'] = $label;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -112,6 +108,19 @@ final readonly class ServicePoint implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): ServicePointBuilder

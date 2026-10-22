@@ -115,48 +115,35 @@ final readonly class Organization implements SelfNormalizingModel
         if (array_key_exists('@type', $data)) {
             $typeRaw = $data['@type'];
             if (!is_string($typeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "@type" must be string, got %s.', get_debug_type($typeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "@type" must be string, got %s.', get_debug_type($typeRaw)));
             }
             $type = $typeRaw;
         }
         if (array_key_exists('@policy', $data) && $data['@policy'] !== null) {
             $policyRaw = $data['@policy'];
             if (!is_string($policyRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "@policy" must be string, got %s.', get_debug_type($policyRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "@policy" must be string, got %s.', get_debug_type($policyRaw)));
             }
             $policy = Some::create(SecretPolicy::tryFrom($policyRaw) ?? UnknownEnumValue::of($policyRaw));
         }
         if (array_key_exists('name', $data) && $data['name'] !== null) {
             $nameRaw = $data['name'];
             if (!is_string($nameRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "name" must be string, got %s.', get_debug_type($nameRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "name" must be string, got %s.', get_debug_type($nameRaw)));
             }
             $name = Some::create($nameRaw);
         }
         if (array_key_exists('organizationName', $data) && $data['organizationName'] !== null) {
             $organizationNameRaw = $data['organizationName'];
             if (!is_string($organizationNameRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "organizationName" must be string, got %s.',
-                        get_debug_type($organizationNameRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "organizationName" must be string, got %s.', get_debug_type($organizationNameRaw)));
             }
             $organizationName = Some::create($organizationNameRaw);
         }
         if (array_key_exists('address', $data) && $data['address'] !== null) {
             $addressRaw = $data['address'];
             if (!is_array($addressRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "address" must be object, got %s.', get_debug_type($addressRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "address" must be object, got %s.', get_debug_type($addressRaw)));
             }
             /** @var array<string, mixed> $addressRawTyped */
             $addressRawTyped = $addressRaw;
@@ -187,6 +174,19 @@ final readonly class Organization implements SelfNormalizingModel
     }
 
     /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
+    }
+
+    /** @return array<int|string, mixed> */
     private function normalize(NormalizationTarget $normalizationTarget): array
     {
         /** @var array<int|string, mixed> $dataArray */
@@ -212,7 +212,7 @@ final readonly class Organization implements SelfNormalizingModel
             $address = $addressOption->get();
             $dataArray['address'] = $normalizationTarget->model($address);
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

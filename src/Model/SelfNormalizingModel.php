@@ -34,7 +34,8 @@ interface SelfNormalizingModel extends JsonSerializable
     public function jsonSerialize(): object;
 
     /**
-     * The document this model came from, as a plain array.
+     * The document this model came from, as a plain array: everything it holds, what the
+     * description marks `readOnly` included.
      *
      * The keys say `int|string` because PHP says so: an extensions bucket keyed by a pattern that
      * matches digits — OpenAPI's `responses` are the everyday case — holds `200`, not `"200"`.
@@ -43,4 +44,17 @@ interface SelfNormalizingModel extends JsonSerializable
      * @return array<int|string, mixed>
      */
     public function toArray(): array;
+
+    /**
+     * What a request carries of this model, as a plain array: everything but what the description
+     * marks `readOnly`, in this model and in every model it holds.
+     *
+     * @return array<int|string, mixed>
+     */
+    public function toRequestArray(): array;
+
+    /**
+     * The same as JSON — what goes out where this model is the body of a request.
+     */
+    public function toRequestJson(): object;
 }

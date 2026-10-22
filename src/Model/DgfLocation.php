@@ -63,9 +63,7 @@ final readonly class DgfLocation implements SelfNormalizingModel
         if (array_key_exists('dgf:locationName', $data) && $data['dgf:locationName'] !== null) {
             $dgfLocationNameRaw = $data['dgf:locationName'];
             if (!is_string($dgfLocationNameRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "dgf:locationName" must be string, got %s.', get_debug_type($dgfLocationNameRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:locationName" must be string, got %s.', get_debug_type($dgfLocationNameRaw)));
             }
             $dgfLocationName = Some::create($dgfLocationNameRaw);
         }
@@ -85,7 +83,7 @@ final readonly class DgfLocation implements SelfNormalizingModel
             $dgfLocationName = $dgfLocationNameOption->get();
             $dataArray['dgf:locationName'] = $dgfLocationName;
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -94,6 +92,19 @@ final readonly class DgfLocation implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): DgfLocationBuilder

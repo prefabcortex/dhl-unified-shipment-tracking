@@ -31,9 +31,13 @@ use function sprintf;
  *
  * That rule stays quiet: a description may name a scheme this package generates no authenticator
  * for (`openIdConnect`, `mutualTLS`), and its caller signs that part in their own PSR-18 client.
- * From inside here, "signed elsewhere" and "forgotten" look exactly alike. An authenticator for a
- * scheme no operation requires is another matter — no request would ever apply it, so it is refused
- * when the registry is built.
+ * From inside here, "signed elsewhere" and "forgotten" look exactly alike.
+ *
+ * A description may also declare a scheme and name no operation that requires it. Nothing says
+ * which requests such a scheme belongs to, so an authenticator registered for it signs every
+ * request: registering it is the caller saying that the API takes it. An authenticator for a scheme
+ * the description does not declare at all is another matter — no request would ever apply it, so it
+ * is refused when the registry is built.
  *
  * To register several schemes for one request, call the factory the client emits for that
  * requirement, or `Client::withAuthenticators()`.
@@ -45,26 +49,23 @@ final readonly class AuthenticatorRegistry
 {
     /**
      * @param list<Authenticator> $authenticators
-     * @param list<string>        $requiredSchemes every scheme an operation of the package requires
+     * @param list<string>        $requiredSchemes        every scheme an operation of the package
+     *                                                    requires
+     * @param list<string>        $schemesRequiredNowhere every scheme the description declares and no
+     *                                                    operation requires
      *
-     * @throws UnsupportedValueException when an authenticator is for a scheme none of them is
+     * @throws UnsupportedValueException when an authenticator is for a scheme that is neither
      */
-    public function __construct(private array $authenticators, array $requiredSchemes)
-    {
+    public function __construct(
+        private array $authenticators,
+        array $requiredSchemes,
+        private array $schemesRequiredNowhere,
+    ) {
+        $declared = [...$requiredSchemes, ...$schemesRequiredNowhere];
         foreach ($authenticators as $authenticator) {
             $scheme = $authenticator->getSecuritySchemeName();
-            if (!in_array($scheme, $requiredSchemes, true)) {
-                throw new UnsupportedValueException(
-                    sprintf(
-                        '%s signs for the security scheme "%s", which no operation of this API requires (%s), so no request would ever apply it. To sign every request your own way, pass an HTTP client that does so to ClientConfig::withHttpClient().',
-                        $authenticator::class,
-                        $scheme,
-                        [] === $requiredSchemes ? 'its description declares none' : 'they require ' . implode(
-                            ', ',
-                            array_map(static fn (string $name): string => '"' . $name . '"', $requiredSchemes),
-                        ),
-                    ),
-                );
+            if (!in_array($scheme, $declared, true)) {
+                throw new UnsupportedValueException(sprintf('%s signs for the security scheme "%s", which the description of this API does not declare (%s), so no request would ever apply it. To sign every request your own way, pass an HTTP client that does so to ClientConfig::withHttpClient().', $authenticator::class, $scheme, [] === $declared ? 'it declares none' : 'it declares ' . implode(', ', array_map(static fn (string $name): string => '"' . $name . '"', $declared))));
             }
         }
     }
@@ -93,6 +94,12 @@ final readonly class AuthenticatorRegistry
                 if (in_array($authenticator->getSecuritySchemeName(), $requiredSchemes, true)) {
                     $request = $authenticator->authenticate($request);
                 }
+            }
+        }
+        // A scheme no operation requires has no request of its own, and so belongs to all of them.
+        foreach ($this->authenticators as $authenticator) {
+            if (in_array($authenticator->getSecuritySchemeName(), $this->schemesRequiredNowhere, true)) {
+                $request = $authenticator->authenticate($request);
             }
         }
 

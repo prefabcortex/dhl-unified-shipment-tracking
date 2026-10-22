@@ -195,33 +195,21 @@ final readonly class DgfRoute implements SelfNormalizingModel
         if (array_key_exists('dgf:vesselName', $data) && $data['dgf:vesselName'] !== null) {
             $dgfVesselNameRaw = $data['dgf:vesselName'];
             if (!is_string($dgfVesselNameRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "dgf:vesselName" must be string, got %s.', get_debug_type($dgfVesselNameRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:vesselName" must be string, got %s.', get_debug_type($dgfVesselNameRaw)));
             }
             $dgfVesselName = Some::create($dgfVesselNameRaw);
         }
         if (array_key_exists('dgf:voyageFlightNumber', $data) && $data['dgf:voyageFlightNumber'] !== null) {
             $dgfVoyageFlightNumberRaw = $data['dgf:voyageFlightNumber'];
             if (!is_string($dgfVoyageFlightNumberRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:voyageFlightNumber" must be string, got %s.',
-                        get_debug_type($dgfVoyageFlightNumberRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:voyageFlightNumber" must be string, got %s.', get_debug_type($dgfVoyageFlightNumberRaw)));
             }
             $dgfVoyageFlightNumber = Some::create($dgfVoyageFlightNumberRaw);
         }
         if (array_key_exists('dgf:airportOfDeparture', $data) && $data['dgf:airportOfDeparture'] !== null) {
             $dgfAirportOfDepartureRaw = $data['dgf:airportOfDeparture'];
             if (!is_array($dgfAirportOfDepartureRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:airportOfDeparture" must be object, got %s.',
-                        get_debug_type($dgfAirportOfDepartureRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:airportOfDeparture" must be object, got %s.', get_debug_type($dgfAirportOfDepartureRaw)));
             }
             /** @var array<string, mixed> $dgfAirportOfDepartureRawTyped */
             $dgfAirportOfDepartureRawTyped = $dgfAirportOfDepartureRaw;
@@ -230,12 +218,7 @@ final readonly class DgfRoute implements SelfNormalizingModel
         if (array_key_exists('dgf:airportOfDestination', $data) && $data['dgf:airportOfDestination'] !== null) {
             $dgfAirportOfDestinationRaw = $data['dgf:airportOfDestination'];
             if (!is_array($dgfAirportOfDestinationRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:airportOfDestination" must be object, got %s.',
-                        get_debug_type($dgfAirportOfDestinationRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:airportOfDestination" must be object, got %s.', get_debug_type($dgfAirportOfDestinationRaw)));
             }
             /** @var array<string, mixed> $dgfAirportOfDestinationRawTyped */
             $dgfAirportOfDestinationRawTyped = $dgfAirportOfDestinationRaw;
@@ -244,36 +227,21 @@ final readonly class DgfRoute implements SelfNormalizingModel
         if (array_key_exists('dgf:estimatedDepartureDate', $data) && $data['dgf:estimatedDepartureDate'] !== null) {
             $dgfEstimatedDepartureDateRaw = $data['dgf:estimatedDepartureDate'];
             if (!is_string($dgfEstimatedDepartureDateRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:estimatedDepartureDate" must be string, got %s.',
-                        get_debug_type($dgfEstimatedDepartureDateRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:estimatedDepartureDate" must be string, got %s.', get_debug_type($dgfEstimatedDepartureDateRaw)));
             }
             $dgfEstimatedDepartureDate = Some::create($dgfEstimatedDepartureDateRaw);
         }
         if (array_key_exists('dgf:estimatedArrivalDate', $data) && $data['dgf:estimatedArrivalDate'] !== null) {
             $dgfEstimatedArrivalDateRaw = $data['dgf:estimatedArrivalDate'];
             if (!is_string($dgfEstimatedArrivalDateRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:estimatedArrivalDate" must be string, got %s.',
-                        get_debug_type($dgfEstimatedArrivalDateRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:estimatedArrivalDate" must be string, got %s.', get_debug_type($dgfEstimatedArrivalDateRaw)));
             }
             $dgfEstimatedArrivalDate = Some::create($dgfEstimatedArrivalDateRaw);
         }
         if (array_key_exists('dgf:placeOfAcceptance', $data) && $data['dgf:placeOfAcceptance'] !== null) {
             $dgfPlaceOfAcceptanceRaw = $data['dgf:placeOfAcceptance'];
             if (!is_array($dgfPlaceOfAcceptanceRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:placeOfAcceptance" must be object, got %s.',
-                        get_debug_type($dgfPlaceOfAcceptanceRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:placeOfAcceptance" must be object, got %s.', get_debug_type($dgfPlaceOfAcceptanceRaw)));
             }
             /** @var array<string, mixed> $dgfPlaceOfAcceptanceRawTyped */
             $dgfPlaceOfAcceptanceRawTyped = $dgfPlaceOfAcceptanceRaw;
@@ -282,12 +250,7 @@ final readonly class DgfRoute implements SelfNormalizingModel
         if (array_key_exists('dgf:portOfLoading', $data) && $data['dgf:portOfLoading'] !== null) {
             $dgfPortOfLoadingRaw = $data['dgf:portOfLoading'];
             if (!is_array($dgfPortOfLoadingRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:portOfLoading" must be object, got %s.',
-                        get_debug_type($dgfPortOfLoadingRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:portOfLoading" must be object, got %s.', get_debug_type($dgfPortOfLoadingRaw)));
             }
             /** @var array<string, mixed> $dgfPortOfLoadingRawTyped */
             $dgfPortOfLoadingRawTyped = $dgfPortOfLoadingRaw;
@@ -296,12 +259,7 @@ final readonly class DgfRoute implements SelfNormalizingModel
         if (array_key_exists('dgf:portOfUnloading', $data) && $data['dgf:portOfUnloading'] !== null) {
             $dgfPortOfUnloadingRaw = $data['dgf:portOfUnloading'];
             if (!is_array($dgfPortOfUnloadingRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:portOfUnloading" must be object, got %s.',
-                        get_debug_type($dgfPortOfUnloadingRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:portOfUnloading" must be object, got %s.', get_debug_type($dgfPortOfUnloadingRaw)));
             }
             /** @var array<string, mixed> $dgfPortOfUnloadingRawTyped */
             $dgfPortOfUnloadingRawTyped = $dgfPortOfUnloadingRaw;
@@ -310,12 +268,7 @@ final readonly class DgfRoute implements SelfNormalizingModel
         if (array_key_exists('dgf:placeOfDelivery', $data) && $data['dgf:placeOfDelivery'] !== null) {
             $dgfPlaceOfDeliveryRaw = $data['dgf:placeOfDelivery'];
             if (!is_array($dgfPlaceOfDeliveryRaw)) {
-                throw new MalformedDataException(
-                    sprintf(
-                        'Property "dgf:placeOfDelivery" must be object, got %s.',
-                        get_debug_type($dgfPlaceOfDeliveryRaw),
-                    ),
-                );
+                throw new MalformedDataException(sprintf('Property "dgf:placeOfDelivery" must be object, got %s.', get_debug_type($dgfPlaceOfDeliveryRaw)));
             }
             /** @var array<string, mixed> $dgfPlaceOfDeliveryRawTyped */
             $dgfPlaceOfDeliveryRawTyped = $dgfPlaceOfDeliveryRaw;
@@ -363,6 +316,19 @@ final readonly class DgfRoute implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->normalize(NormalizationTarget::Json);
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->normalize(NormalizationTarget::RequestArray);
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return (object) $this->normalize(NormalizationTarget::RequestJson);
     }
 
     /** @return array<int|string, mixed> */
@@ -420,7 +386,7 @@ final readonly class DgfRoute implements SelfNormalizingModel
             $dgfPlaceOfDelivery = $dgfPlaceOfDeliveryOption->get();
             $dataArray['dgf:placeOfDelivery'] = $normalizationTarget->model($dgfPlaceOfDelivery);
         }
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }

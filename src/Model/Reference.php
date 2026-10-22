@@ -91,27 +91,21 @@ final readonly class Reference implements SelfNormalizingModel
         if (array_key_exists('@scope', $data) && $data['@scope'] !== null) {
             $scopeRaw = $data['@scope'];
             if (!is_string($scopeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "@scope" must be string, got %s.', get_debug_type($scopeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "@scope" must be string, got %s.', get_debug_type($scopeRaw)));
             }
             $scope = Some::create(SecretScope::tryFrom($scopeRaw) ?? UnknownEnumValue::of($scopeRaw));
         }
         if (array_key_exists('number', $data) && $data['number'] !== null) {
             $numberRaw = $data['number'];
             if (!is_string($numberRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "number" must be string, got %s.', get_debug_type($numberRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "number" must be string, got %s.', get_debug_type($numberRaw)));
             }
             $number = Some::create($numberRaw);
         }
         if (array_key_exists('type', $data)) {
             $typeRaw = $data['type'];
             if (!is_string($typeRaw)) {
-                throw new MalformedDataException(
-                    sprintf('Property "type" must be string, got %s.', get_debug_type($typeRaw)),
-                );
+                throw new MalformedDataException(sprintf('Property "type" must be string, got %s.', get_debug_type($typeRaw)));
             }
             $type = ReferenceType::tryFrom($typeRaw) ?? UnknownEnumValue::of($typeRaw);
         }
@@ -140,7 +134,7 @@ final readonly class Reference implements SelfNormalizingModel
             $dataArray['number'] = $number;
         }
         $dataArray['type'] = $this->type->value;
-        $dataArray += $this->getAdditionalProperties();
+        $dataArray += $this->additionalProperties;
 
         return $dataArray;
     }
@@ -149,6 +143,19 @@ final readonly class Reference implements SelfNormalizingModel
     public function jsonSerialize(): object
     {
         return (object) $this->toArray();
+    }
+
+    /** @return array<int|string, mixed> */
+    #[Override]
+    public function toRequestArray(): array
+    {
+        return $this->toArray();
+    }
+
+    #[Override]
+    public function toRequestJson(): object
+    {
+        return $this->jsonSerialize();
     }
 
     public function toBuilder(): ReferenceBuilder
